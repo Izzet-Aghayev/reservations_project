@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.contrib import messages
 
@@ -27,7 +28,7 @@ class RegisterView(View):
             form.save()
 
             messages.success(request, 'Qeydiyyatdan keçildi')
-            return redirect('register')
+            return redirect('home')
         
         else:
             messages.error(request, form.errors)
@@ -57,7 +58,7 @@ class LoginView(View):
                 login(request, user)
 
                 messages.success(request, 'Daxil olundu')
-                return redirect('register')
+                return redirect('home')
             
             else:
                 messages.info(request, 'İstifadəçi adı və ya şifrə yanlışdır')
@@ -65,3 +66,12 @@ class LoginView(View):
         else:
             messages.error(request, form.errors)
             return redirect('login')
+
+
+
+class LogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+
+        messages.success(request, 'Hesabdan çıxıldı')
+        return redirect('home')

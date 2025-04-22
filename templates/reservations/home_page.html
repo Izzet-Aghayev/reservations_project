@@ -1,0 +1,15 @@
+{% extends 'base/layout.html' %}
+
+{% block message %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="container" style="background-color: lightsteelblue; width: 600px; border-radius: 50%;">
+        <b><div class="mx-auto p-2" style="width: auto; font-size: 18px; color: rgb(219, 36, 36); text-align: center;">{{ message }}</div></b>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
